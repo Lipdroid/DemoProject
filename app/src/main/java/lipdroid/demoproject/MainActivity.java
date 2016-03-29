@@ -37,16 +37,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mHorizontalListView = (HorizontalListView) findViewById(R.id.scmain_lv_list_app);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
-        mListApp.add(R.drawable.default_avatar);
+        mListApp.add(R.drawable.coins);
+        mListApp.add(R.drawable.chart);
+        mListApp.add(R.drawable.console);
+        mListApp.add(R.drawable.email);
+        mListApp.add(R.drawable.marker);
+        mListApp.add(R.drawable.watch);
+        mListApp.add(R.drawable.settings);
+        mListApp.add(R.drawable.phone);
         mListAppAdapter = new SCListAppAdapter(this, mListApp);
         mHorizontalListView.setAdapter(mListAppAdapter);
 

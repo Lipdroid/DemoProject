@@ -8,7 +8,8 @@
         android:id="@+id/scmain_lv_list_app"
         android:layout_width="match_parent"
         android:layout_height="255px"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10px"/>
 
 </RelativeLayout>

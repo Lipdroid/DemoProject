@@ -23,6 +23,7 @@
                 android:id="@+id/item_app_img"
                 android:layout_width="190px"
                 android:layout_height="190px"
+                android:padding="25px"
                 android:scaleType="fitXY" />
 
             <TextView
