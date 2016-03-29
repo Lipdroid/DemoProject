@@ -23,6 +23,7 @@
                 android:id="@+id/item_app_img"
                 android:layout_width="190px"
                 android:layout_height="190px"
+                android:padding="25px"
                 android:scaleType="fitXY" />
 
             <TextView
@@ -30,9 +31,10 @@
                 android:layout_width="190px"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10px"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:textColor="@android:color/black"
-                android:textSize="51px" />
+                android:textSize="30px" />
         </LinearLayout>
 
         <View

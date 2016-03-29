@@ -67,7 +67,7 @@ public class SCListAppAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
+
             convertView = mActivity.getLayoutInflater().inflate(R.layout.item_bottom_list, null);
             mListAppHolder = new SCListAppHolder();
             mListAppHolder.imgApp = (ImageView) convertView.findViewById(R.id.item_app_img);
@@ -79,12 +79,10 @@ public class SCListAppAdapter extends BaseAdapter {
             new SCMultipleScreen(mActivity);
             SCMultipleScreen.resizeAllView((ViewGroup) convertView);
 
-            convertView.setTag(mListAppHolder);
-        } else {
-            mListAppHolder = (SCListAppHolder) convertView.getTag();
-        }
+           // convertView.setTag(mListAppHolder);
 
-        mListAppHolder.resetView();
+
+       // mListAppHolder.resetView();
 
 
         if (position == 0) {
@@ -95,19 +93,21 @@ public class SCListAppAdapter extends BaseAdapter {
         /*
          * initialize pop up window
          */
-        popupWindowDogs = popupWindowDogs();
+
         mListAppHolder.imgApp.setImageResource(mListApp.get(position));
         mListAppHolder.imgApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindowDogs.showAsDropDown(v, -5, 0);
+                popupWindowDogs = popupWindowDogs(position);
+               // popupWindowDogs.showAsDropDown(v, 0, -125);
+                popupWindowDogs.showAtLocation(v, Gravity.BOTTOM, 0, v.getHeight());
             }
         });
         return convertView;
     }
 
 
-    public PopupWindow popupWindowDogs() {
+    public PopupWindow popupWindowDogs(int position) {
 
         // initialize a pop up window type
         PopupWindow popupWindow = new PopupWindow(mActivity);
@@ -116,17 +116,28 @@ public class SCListAppAdapter extends BaseAdapter {
         ListView listViewDogs = new ListView(mActivity);
         listViewDogs.setVerticalScrollBarEnabled(false);
         listViewDogs.setHorizontalScrollBarEnabled(false);
-
         ArrayList<Integer> mListApp = new ArrayList<Integer>();
-        mListApp.add(R.drawable.ec_logo);
-        mListApp.add(R.drawable.ec_logo);
-        mListApp.add(R.drawable.ec_logo);
-        mListApp.add(R.drawable.ec_logo);
         ArrayList<String> mListApp_Str = new ArrayList<String>();
-        mListApp_Str.add("ABCc");
-        mListApp_Str.add("ABCc");
-        mListApp_Str.add("ABCc");
-        mListApp_Str.add("ABCc");
+        if(position == 2) {
+
+            mListApp.add(R.drawable.coins);
+            mListApp.add(R.drawable.console);
+            mListApp.add(R.drawable.settings);
+
+            mListApp_Str.add("Coins");
+            mListApp_Str.add("Console");
+            mListApp_Str.add("Setting");
+        }else {
+
+            mListApp.add(R.drawable.coins);
+            mListApp.add(R.drawable.console);
+            mListApp.add(R.drawable.chart);
+            mListApp.add(R.drawable.settings);
+            mListApp_Str.add("Coins");
+            mListApp_Str.add("Console");
+            mListApp_Str.add("Chart");
+            mListApp_Str.add("Setting");
+        }
         SubListAdapter mListAppAdapter = new SubListAdapter(mActivity, mListApp, mListApp_Str);
         listViewDogs.setAdapter(mListAppAdapter);
 
