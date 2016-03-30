@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import java.util.List;
 import lipdroid.demoproject.Adapters.Holders.SCListAppHolder;
 import lipdroid.demoproject.MainActivity;
 import lipdroid.demoproject.R;
+import lipdroid.demoproject.library.CustomizeDialogOk;
 import lipdroid.demoproject.library.SCMultipleScreen;
 
 
@@ -44,6 +46,9 @@ public class SCListAppAdapter extends BaseAdapter {
     private ArrayList<Integer> mListApp = null;
     String popUpContents[];
     PopupWindow popupWindowDogs;
+    int item_pressed;
+    CustomizeDialogOk customizeDialogok = null;
+
 
     public SCListAppAdapter(Activity activity, ArrayList<Integer> listApp) {
         this.mActivity = activity;
@@ -68,25 +73,25 @@ public class SCListAppAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-            convertView = mActivity.getLayoutInflater().inflate(R.layout.item_bottom_list, null);
-            mListAppHolder = new SCListAppHolder();
-            mListAppHolder.imgApp = (ImageView) convertView.findViewById(R.id.item_app_img);
-            mListAppHolder.tvName = (TextView) convertView.findViewById(R.id.item_app_name);
-            mListAppHolder.vPaddingRight = convertView.findViewById(R.id.v_padding_right);
-            mListAppHolder.vPaddingLeft = convertView.findViewById(R.id.v_padding_left);
+        convertView = mActivity.getLayoutInflater().inflate(R.layout.item_bottom_list, null);
+        mListAppHolder = new SCListAppHolder();
+        mListAppHolder.imgApp = (ImageView) convertView.findViewById(R.id.item_app_img);
+        mListAppHolder.tvName = (TextView) convertView.findViewById(R.id.item_app_name);
+        //  mListAppHolder.vPaddingRight = convertView.findViewById(R.id.v_padding_right);
+        //mListAppHolder.vPaddingLeft = convertView.findViewById(R.id.v_padding_left);
 
 
-            new SCMultipleScreen(mActivity);
-            SCMultipleScreen.resizeAllView((ViewGroup) convertView);
+        new SCMultipleScreen(mActivity);
+        SCMultipleScreen.resizeAllView((ViewGroup) convertView);
 
-           // convertView.setTag(mListAppHolder);
+        // convertView.setTag(mListAppHolder);
 
 
-       // mListAppHolder.resetView();
+        // mListAppHolder.resetView();
 
 
         if (position == 0) {
-            mListAppHolder.vPaddingLeft.setVisibility(View.VISIBLE);
+            // mListAppHolder.vPaddingLeft.setVisibility(View.VISIBLE);
         }
 
 
@@ -99,8 +104,9 @@ public class SCListAppAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 popupWindowDogs = popupWindowDogs(position);
-               // popupWindowDogs.showAsDropDown(v, 0, -125);
-                popupWindowDogs.showAtLocation(v, Gravity.BOTTOM, 0, v.getHeight());
+                // popupWindowDogs.showAsDropDown(v, 0, -125);
+                item_pressed = position;
+                popupWindowDogs.showAtLocation(v, Gravity.BOTTOM, -5, v.getHeight());
             }
         });
         return convertView;
@@ -118,7 +124,7 @@ public class SCListAppAdapter extends BaseAdapter {
         listViewDogs.setHorizontalScrollBarEnabled(false);
         ArrayList<Integer> mListApp = new ArrayList<Integer>();
         ArrayList<String> mListApp_Str = new ArrayList<String>();
-        if(position == 2) {
+        if (position == 2) {
 
             mListApp.add(R.drawable.coins);
             mListApp.add(R.drawable.console);
@@ -127,7 +133,14 @@ public class SCListAppAdapter extends BaseAdapter {
             mListApp_Str.add("Coins");
             mListApp_Str.add("Console");
             mListApp_Str.add("Setting");
-        }else {
+        } else if (position == 0) {
+
+            mListApp.add(R.drawable.coins);
+            mListApp.add(R.drawable.console);
+
+            mListApp_Str.add("Coins");
+            mListApp_Str.add("Console");
+        } else {
 
             mListApp.add(R.drawable.coins);
             mListApp.add(R.drawable.console);
@@ -216,9 +229,22 @@ public class SCListAppAdapter extends BaseAdapter {
 
             // get the text and set it as the button text
 
-            Toast.makeText(mContext, "Selected Positon is: " + arg2, Toast.LENGTH_LONG).show();
 
+            //dialog
+            customizeDialogok = new CustomizeDialogOk(mContext,
+                    m_OnSuccessOkDialogHandler);
+            customizeDialogok.setTitle("Response");
+            customizeDialogok.setMessage("You Have pressed bottom list item" + (item_pressed+1) + "  and sublist item" + (arg2+1));
+            customizeDialogok.show();
 
         }
+        private CustomizeDialogOk.OnSuccessOkDialogHandler m_OnSuccessOkDialogHandler = new CustomizeDialogOk.OnSuccessOkDialogHandler() {
+
+            public void onSuccessMessage(Boolean iSSuccess, long id) {
+                // TODO Auto-generated method stub
+                Log.e("finish","finish");
+            }
+        };
+
     }
 }

@@ -4,6 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="23dp"
+            android:layout_marginStart="23dp"
+            android:text="AppName"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
+
+    </RelativeLayout>
     <lipdroid.demoproject.library.HorizontalListView
         android:id="@+id/scmain_lv_list_app"
         android:layout_width="match_parent"

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="0dip"
+    android:background="@drawable/alert_bg"
+    android:orientation="vertical"
+    android:paddingBottom="2dip"
+    android:paddingLeft="0dip"
+    android:paddingRight="0dip"
+    android:paddingTop="0dip" >
+
+    <TextView
+        android:id="@+id/dialogTitle"
+         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dip"
+        android:background="#00000000"
+        android:gravity="center"
+        android:text="dffdg"
+        android:textColor="#525252"
+        android:textSize="26sp"
+        android:textStyle="bold" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/dialogMessage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialogTitle"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:maxLines="10"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scrollbars="vertical"
+        android:text="sdfd"
+        android:textColor="#525252"
+        android:textSize="18sp" >
+    </TextView>
+
+     <LinearLayout
+        android:id="@+id/layoutBorder"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/dialogMessage"
+        android:background="#c4c4c4"
+        android:orientation="vertical" >
+    </LinearLayout>
+    <Button
+        android:id="@+id/OkButton"
+        android:layout_width="fill_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/layoutBorder"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/dilogbutton"
+        android:text="OK"
+        android:textColor="#3e68b2"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
