@@ -106,7 +106,7 @@ public class SCListAppAdapter extends BaseAdapter {
                 popupWindowDogs = popupWindowDogs(position);
                 // popupWindowDogs.showAsDropDown(v, 0, -125);
                 item_pressed = position;
-                popupWindowDogs.showAtLocation(v, Gravity.BOTTOM, -5, v.getHeight());
+                popupWindowDogs.showAtLocation(v, Gravity.BOTTOM, 0, v.getHeight()+50);
             }
         });
         return convertView;
@@ -117,7 +117,7 @@ public class SCListAppAdapter extends BaseAdapter {
 
         // initialize a pop up window type
         PopupWindow popupWindow = new PopupWindow(mActivity);
-
+        popupWindow.setAnimationStyle(R.style.AnimationPopup);
         // the drop down list is a list view
         ListView listViewDogs = new ListView(mActivity);
         listViewDogs.setVerticalScrollBarEnabled(false);
@@ -170,7 +170,7 @@ public class SCListAppAdapter extends BaseAdapter {
 
 
         popupWindow.setFocusable(true);
-        popupWindow.setWidth(500);
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
 
         // set the list view as pop up window content

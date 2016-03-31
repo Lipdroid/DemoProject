@@ -20,16 +20,6 @@ public class SubListAdapter extends BaseAdapter {
     private ArrayList<Integer> mListApp = null;
     private ArrayList<Integer> mListApp_sub = new ArrayList<Integer>();
     private ArrayList<String> mListApp_sub_str = new ArrayList<String>();
-//    private DisplayImageOptions mImageLoaderOpts = new DisplayImageOptions.Builder()
-//            .showImageOnLoading(R.drawable.common_loading_app_icon)
-//            .showImageForEmptyUri(R.drawable.common_loading_app_icon)
-//            .showImageOnFail(R.drawable.common_loading_app_icon)
-//            .bitmapConfig(Bitmap.Config.RGB_565)
-//            .cacheInMemory(true).cacheOnDisk(false).considerExifParams(true)
-//            .imageScaleType(ImageScaleType.EXACTLY)
-//            .resetViewBeforeLoading(true)
-//            .build();
-
     public SubListAdapter(Activity activity, ArrayList<Integer> listApp, ArrayList<String> mListApp_Str) {
         this.mActivity = activity;
         this.mListApp = listApp;

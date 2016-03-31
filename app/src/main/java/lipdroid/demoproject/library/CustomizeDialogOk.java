@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -42,7 +43,9 @@ public class CustomizeDialogOk extends Dialog implements OnClickListener {
        mTitle = (TextView) findViewById(R.id.dialogTitle);
        mMessage = (TextView) findViewById(R.id.dialogMessage);  
        okButton = (Button) findViewById(R.id.OkButton);
-      
+
+        new SCMultipleScreen(context);
+        SCMultipleScreen.resizeAllView((ViewGroup) v);
        
        mTitle.setTypeface(fontRegular);
        mMessage.setTypeface(fontRegular);
