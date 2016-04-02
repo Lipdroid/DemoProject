@@ -317,7 +317,10 @@ public class SCListAppAdapter extends BaseAdapter {
                 Log.d("Response", json.toString());
 
             }
-            return json.toString();
+            if(json == null)
+                return "No Response From Api";
+            else
+                return json.toString();
         }
 
         /**
