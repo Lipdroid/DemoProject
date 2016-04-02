@@ -1,6 +1,7 @@
 package lipdroid.demoproject.Adapters;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -27,14 +29,22 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import lipdroid.demoproject.Adapters.Holders.SCListAppHolder;
 import lipdroid.demoproject.MainActivity;
 import lipdroid.demoproject.R;
 import lipdroid.demoproject.library.CustomizeDialogOk;
 import lipdroid.demoproject.library.SCMultipleScreen;
+import lipdroid.demoproject.utils.ConstantURLs;
+import lipdroid.demoproject.utils.JSONParser;
 
 
 /**
@@ -48,8 +58,13 @@ public class SCListAppAdapter extends BaseAdapter {
     PopupWindow popupWindowDogs;
     int item_pressed;
     CustomizeDialogOk customizeDialogok = null;
-
-
+    ProgressDialog pDialog;
+    ArrayList<NameValuePair> nameValueParams = new ArrayList<NameValuePair>();
+    JSONParser jsonParser = new JSONParser();
+    JSONObject json = new JSONObject();
+    ArrayList<Object> listParams = new ArrayList<Object>();
+    ArrayList<Map.Entry<String, Bitmap>> bitmapParams = new ArrayList<Map.Entry<String, Bitmap>>();
+    int count = 0;
     public SCListAppAdapter(Activity activity, ArrayList<Integer> listApp) {
         this.mActivity = activity;
         this.mListApp = listApp;
@@ -226,23 +241,129 @@ public class SCListAppAdapter extends BaseAdapter {
 
             // dismiss the pop up
             popupWindowDogs.dismiss();
-
+            count = 0;
+            new RequestServer().execute("GET");
             // get the text and set it as the button text
 
 
             //dialog
-            customizeDialogok = new CustomizeDialogOk(mContext,
-                    m_OnSuccessOkDialogHandler);
-            customizeDialogok.setTitle("Response");
-            customizeDialogok.setMessage("You Have pressed bottom list item" + (item_pressed+1) + "  and sublist item" + (arg2+1));
-            customizeDialogok.show();
+//            customizeDialogok = new CustomizeDialogOk(mContext,
+//                    m_OnSuccessOkDialogHandler);
+//            customizeDialogok.setTitle("Response");
+//            customizeDialogok.setMessage("You Have pressed bottom list item" + (item_pressed+1) + "  and sublist item" + (arg2+1));
+//            customizeDialogok.show();
 
         }
+
+
+    }
+
+
+    /**
+     * Background Async Task to process the recharge
+     */
+    class RequestServer extends AsyncTask<String, String, String> {
+        String dialogTitle = "Response";
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(mActivity);
+            pDialog.setMessage("Connecting Server...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        /**
+         * Creating product
+         */
+        protected String doInBackground(String... args) {
+            String requestType = args[0];
+
+            if(requestType.equals("POST")){
+                dialogTitle = "Post Response";
+                // Building Parameters
+                nameValueParams.add(new BasicNameValuePair("firstName", "second"));
+                nameValueParams.add(new BasicNameValuePair("lastName", "success"));
+                // getting JSON Object
+                // Note that create product url accepts POST method
+                listParams.add(nameValueParams);
+                listParams.add(bitmapParams);
+
+                json = jsonParser.makeHttpRequest(ConstantURLs.base_url_post, "POST", listParams);
+            }else if(requestType.equals("GET")){
+                dialogTitle = "Get Response";
+                json = jsonParser.makeHttpRequest(ConstantURLs.base_url_get, "GET", listParams);
+            }
+
+
+
+            if (json != null) {
+
+                try {
+                    if (json.getInt("success") == 1) {
+                       // parseJsonData(json);
+
+                    }
+                } catch (JSONException e2) {
+                    // TODO Auto-generated catch block
+                    e2.printStackTrace();
+                }
+
+                Log.d("Response", json.toString());
+
+            }
+            return json.toString();
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            JSONObject result = null;
+            try {
+                 result = new JSONObject(file_url);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(result!= null){
+                String firstname = "";
+                String lastname = "";
+                String name = "";
+
+                try {
+                     firstname = result.getString("firstName");
+                     lastname = result.getString("lastName");
+                     name = result.getString("name");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                file_url = "First Name: "+firstname+"\nLast name: "+lastname+ "\n Name: "+name;
+            }
+            pDialog.dismiss();
+            customizeDialogok = new CustomizeDialogOk(mActivity,
+                    m_OnSuccessOkDialogHandler);
+            customizeDialogok.setTitle(dialogTitle);
+            customizeDialogok.setMessage(file_url);
+            customizeDialogok.show();
+        }
+
         private CustomizeDialogOk.OnSuccessOkDialogHandler m_OnSuccessOkDialogHandler = new CustomizeDialogOk.OnSuccessOkDialogHandler() {
 
             public void onSuccessMessage(Boolean iSSuccess, long id) {
                 // TODO Auto-generated method stub
                 Log.e("finish","finish");
+                if(count == 0){
+                    new RequestServer().execute("POST");
+                    count++;
+                }
+
+
             }
         };
 
