@@ -28,10 +28,11 @@
 
             <TextView
                 android:id="@+id/item_app_name"
-                android:layout_width="190px"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10px"
                 android:gravity="center"
+                android:tag="30"
                 android:layout_gravity="center"
                 android:textColor="#525252"
                 android:textSize="40px" />

@@ -34,6 +34,7 @@
                 android:layout_marginTop="5px"
                 android:layout_marginBottom="5px"
                 android:gravity="center_horizontal"
+                android:tag="30"
                 android:text="items"
                 android:textColor="@android:color/white"
                 android:textSize="40px" />

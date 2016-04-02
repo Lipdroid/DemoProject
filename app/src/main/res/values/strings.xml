@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">gaadiwala</string>
-    <string name="map_api">AIzaSyDF1jcIp79Clkc5ZPEgceHygWCH6FonPVU</string>
+    <!--<string name="map_api">AIzaSyDF1jcIp79Clkc5ZPEgceHygWCH6FonPVU</string>-->
+    <string name="map_api">AIzaSyDJvv5-b0dceJtx5_K8VQ_XOOXVFsKWtfQ</string>
+
+    AIzaSyDJvv5-
 </resources>
